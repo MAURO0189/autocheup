@@ -5,6 +5,8 @@ export const USER_NAV = [
   { label: "Vehículos", path: "/vehicles", icon: Car },
   { label: "Mis consultas", path: "/my-queries", icon: ClipboardList },
   { label: "Perfil", path: "/profile", icon: User },
+  { label: "Consulta RUNT", path: "/runtPage", icon: Car },
+  { label: "Reclamaciones", path: "/reclamaciones", icon: ClipboardList },
 ];
 
 export const ADMIN_NAV = [

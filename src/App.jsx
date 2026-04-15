@@ -3,7 +3,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import MainLayout from "./components/layout/MainLayout";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import Home from "./components/layout/Home";
+import Home from "./features/home/pages/Home";
 import Register from "./auth/pages/Register";
 import Login from "./auth/pages/Login";
 import AdminLoginForm from "./auth/pages/AdminLoginForm";
@@ -13,6 +13,8 @@ import AdminDashboard from "./admin/AdminDashboard";
 import Dashboard from "./features/dashboard/pages/Dashboard";
 import ProfilePage from "./features/profile/ProfilePage";
 import SubscriptionPage from "./features/subscription/SubscriptionPage";
+import RuntPage from "./features/runt/pages/RuntPage";
+import ReclamacionesPage from "./features/fasecolda/pages/ReclamacionesPage";
 
 function App() {
   return (
@@ -47,6 +49,15 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/runtPage"
+              element={
+                <ProtectedRoute>
+                  <RuntPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/reclamaciones" element={<ReclamacionesPage />} />
             <Route
               path="/subscription"
               element={
