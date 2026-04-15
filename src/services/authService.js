@@ -10,7 +10,7 @@ export const logoutUser = () => apiPost("/api/users/logout", {});
 export const getCurrentUser = () => apiGet("/api/auth/me");
 
 export const requestPasswordReset = (email) =>
-  apiPost("/auth/forgot-password", { email });
+  apiPost("/api/auth/forgot-password", { email });
 
 export const resetPassword = ({ token, password }) =>
-  apiPost("/auth/reset-password", { token, password });
+  apiPost("/api/auth/reset-password", { token, password });

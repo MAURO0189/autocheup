@@ -1,21 +1,20 @@
 import { useState } from "react";
-//import { useAuth } from "../../auth/hooks/useAuth";
+import { useAuth } from "../../../auth/hooks/useAuth";
 
 /**
  * Lógica de la página de perfil.
  * Solo cubre: datos personales + foto de avatar.
  */
 export const useProfile = () => {
-  //const { user } = useAuth();
-  const user = null; // Simulación del usuario autenticado
+  const { user } = useAuth();
 
   // ── Formulario datos personales ──────────────────────────
   const [form, setForm] = useState({
-    firstName: user?.userName ?? "",
+    firstName: user?.username ?? "",
     lastName: user?.lastName ?? "",
     email: user?.email ?? "",
-    phone: user?.phone ?? "",
-    document: user?.document ?? "",
+    phone: user?.phoneNumber ?? "",
+    document: user?.identificationNumber ?? "",
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);

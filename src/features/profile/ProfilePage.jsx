@@ -1,5 +1,5 @@
 import { useProfile } from "./hooks/useProfile";
-//import { useAuth } from "../auth/hooks/useAuth";
+import { useAuth } from "../../auth/hooks/useAuth";
 import ProfileAvatar from "./components/ProfileAvatar";
 import PersonalForm from "./components/PersonalForm";
 
@@ -11,8 +11,7 @@ import PersonalForm from "./components/PersonalForm";
  * Ruta: /profile
  */
 const ProfilePage = () => {
-  //const { user } = useAuth();
-  const user = null; // Simulación del usuario autenticado
+  const { user } = useAuth();
   const hasPlan = user?.plan && user.plan !== "free";
 
   const {
