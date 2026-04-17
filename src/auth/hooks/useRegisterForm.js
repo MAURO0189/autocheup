@@ -19,6 +19,7 @@ const initialState = {
   identificationNumber: "",
   password: "",
   confirmPassword: "",
+  acceptTerms: false,
 };
 
 export const useRegisterForm = () => {
@@ -29,8 +30,11 @@ export const useRegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = async (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -52,8 +56,15 @@ export const useRegisterForm = () => {
       return;
     }
 
+    if (!formData.acceptTerms) {
+      setMessage("Debes aceptar los términos y condiciones para continuar.");
+      setMessageType("error");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const { confirmPassword, ...payload } = formData;
+      const { confirmPassword, acceptTerms, ...payload } = formData;
       const { ok, data } = await registerUser(payload);
       if (ok) {
         setMessage("Registro exitoso. Redirigiendo al inicio de sesión...");
