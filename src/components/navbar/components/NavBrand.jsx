@@ -12,7 +12,7 @@ export function NavBrand() {
         >
           AUTOCHECKUP
         </Link>
-        <p className="text-xs md:text-sm text-gray-500 font-medium font-roboto">
+        <p className="text-xs md:text-sm text-lime-500 font-medium font-roboto">
           ANALÍTICA VEHICULAR Y REPORTES HISTÓRICOS
         </p>
       </div>
