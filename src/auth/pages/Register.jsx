@@ -51,7 +51,6 @@ const FORM_FIELDS = [
     type: "password",
     placeholder: "Ingresa tu contraseña",
     icon: Lock,
-    hint: "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.",
   },
   {
     id: "confirmPassword",
@@ -60,6 +59,7 @@ const FORM_FIELDS = [
     type: "password",
     placeholder: "Confirma tu contraseña",
     icon: Lock,
+    hint: "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.",
   },
 ];
 
@@ -80,10 +80,10 @@ const Register = () => {
           <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
             {/* Encabezado */}
             <div className="bg-cyan-950 py-4 px-6 text-white">
-              <h1 className="text-2xl font-bold">Crear cuenta</h1>
+              <h1 className="text-2xl text-lime-500 font-bold">Crear cuenta</h1>
               <p className="text-blue-100">
                 Regístrate para gestionar de forma rápida y segura los datos de
-                los vehículos que se quieren comercializar
+                los vehículos que quieres comercializar
               </p>
             </div>
 
@@ -99,6 +99,36 @@ const Register = () => {
                       onChange={handleChange}
                     />
                   ))}
+                </div>
+
+                <div className="mt-6 flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="acceptTerms"
+                    name="acceptTerms"
+                    checked={formData.acceptTerms}
+                    onChange={handleChange}
+                    className="mt-1 accent-lime-500 w-4 h-4 cursor-pointer"
+                  />
+                  <label
+                    htmlFor="acceptTerms"
+                    className="text-sm text-cyan-950"
+                  >
+                    He leído y acepto los{" "}
+                    <Link
+                      to="/terms"
+                      className="text-lime-500 hover:text-lime-700 underline"
+                    >
+                      términos y condiciones
+                    </Link>{" "}
+                    y la{" "}
+                    <Link
+                      to="/privacy"
+                      className="text-lime-500 hover:text-lime-700 underline"
+                    >
+                      política de privacidad
+                    </Link>
+                  </label>
                 </div>
 
                 <div className="mt-8">

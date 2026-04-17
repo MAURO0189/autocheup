@@ -9,6 +9,7 @@ const LoginForm = () => {
     message,
     messageType,
     isSubmitting,
+    isLocked,
     handleChange,
     handleSubmit,
   } = useLoginForm();
@@ -20,7 +21,9 @@ const LoginForm = () => {
           <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
             {/* Encabezado */}
             <div className="bg-cyan-950 py-4 px-6 text-white">
-              <h1 className="text-2xl font-bold">Iniciar sesión</h1>
+              <h1 className="text-2xl text-lime-500 font-bold">
+                Iniciar sesión
+              </h1>
               <p className="text-blue-100 text-sm">
                 Bienvenido de nuevo, por favor ingresa tus credenciales.
               </p>
@@ -71,10 +74,16 @@ const LoginForm = () => {
                 <div className="mt-6 w-full max-w-xs">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-lime-500 text-white px-4 py-2.5 rounded-lg hover:bg-lime-600 transition-colors font-medium flex items-center justify-center gap-2 disabled:opacity-60"
+                    disabled={isSubmitting || isLocked} // 👈 agrega isLocked
+                    className="w-full bg-lime-500 text-white px-4 py-2.5 rounded-lg hover:bg-lime-600 
+             transition-colors font-medium flex items-center justify-center gap-2 
+             disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "Ingresando..." : "Iniciar sesión"}
+                    {isLocked
+                      ? "Cuenta bloqueada 🔒"
+                      : isSubmitting
+                        ? "Ingresando..."
+                        : "Iniciar sesión"}
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
