@@ -1,24 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../../auth/hooks/useAuth";
 
-/**
- * Lógica de la página de perfil.
- * Solo cubre: datos personales + foto de avatar.
- */
 export const useProfile = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
 
-  // ── Formulario datos personales ──────────────────────────
   const [form, setForm] = useState({
-    firstName: user?.username ?? "",
-    lastName: user?.lastName ?? "",
-    email: user?.email ?? "",
-    phone: user?.phoneNumber ?? "",
-    document: user?.identificationNumber ?? "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    document: "",
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+
+  // ✅ Sincroniza el form cuando user carga o cambia
+  useEffect(() => {
+    if (!user) return;
+    setForm({
+      firstName: user.username ?? "",
+      lastName: user.lastName ?? "",
+      email: user.email ?? "",
+      phone: user.phoneNumber ?? "",
+      document: user.identificationNumber ?? "",
+    });
+  }, [user]);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -31,8 +38,9 @@ export const useProfile = () => {
     setLoading(true);
     setError(null);
     try {
-      // TODO: await userService.updateProfile(form);
-      await new Promise((r) => setTimeout(r, 800)); // simula latencia
+      // TODO: const { ok, data } = await userService.updateProfile(form);
+      // if (ok) setUser(data); // ✅ actualiza contexto global sin reload
+      await new Promise((r) => setTimeout(r, 800));
       setSuccess(true);
     } catch {
       setError("No se pudo actualizar el perfil. Intenta de nuevo.");
@@ -53,7 +61,6 @@ export const useProfile = () => {
     // TODO: await storageService.uploadAvatar(file);
   };
 
-  // Iniciales para el avatar por defecto
   const initials =
     [form.firstName[0], form.lastName[0]]
       .filter(Boolean)

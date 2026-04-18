@@ -98,7 +98,7 @@ export const useLoginForm = () => {
       if (ok) {
         clearLockoutData();
         updateLockout({ attempts: 0, lockedUntil: null });
-        login(data);
+        await login();
         setMessage("Inicio de sesión exitoso. Redirigiendo...");
         setMessageType("success");
         setTimeout(() => navigate("/dashboard"), 600);
