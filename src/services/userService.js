@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "./apiClient";
+import { apiGet, apiPost, apiPatch, apiDelete } from "./apiClient";
 
 export const getUsers = () => apiGet("/api/users");
 
