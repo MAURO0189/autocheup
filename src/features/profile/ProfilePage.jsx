@@ -1,15 +1,9 @@
 import { useProfile } from "./hooks/useProfile";
+import { useAvatar } from "./hooks/useAvatar";
 import { useAuth } from "../../auth/hooks/useAuth";
 import ProfileAvatar from "./components/ProfileAvatar";
 import PersonalForm from "./components/PersonalForm";
 
-/**
- * Página de perfil del usuario.
- * Secciones: datos personales + foto de perfil.
- *
- * Se monta dentro de DashboardLayout vía <Outlet />.
- * Ruta: /profile
- */
 const ProfilePage = () => {
   const { user } = useAuth();
   const hasPlan = user?.plan && user.plan !== "free";
@@ -21,20 +15,28 @@ const ProfilePage = () => {
     error,
     handleChange,
     handleSubmit,
-    avatarPreview,
-    handleAvatarChange,
     initials,
+    OCCUPATIONS,
+    HOW_DID_YOU_FIND_US,
   } = useProfile();
+
+  const {
+    preview,
+    uploading,
+    error: avatarError,
+    handleAvatarChange,
+  } = useAvatar(user?.uuid);
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      {/* Header */}
       <section className="bg-cyan-950 text-white py-10 px-4 md:px-6">
         <div className="container mx-auto flex flex-col sm:flex-row items-center sm:items-end gap-6">
           <ProfileAvatar
             initials={initials}
-            preview={avatarPreview}
+            preview={preview}
             onChange={handleAvatarChange}
+            uploading={uploading}
+            error={avatarError}
           />
           <div className="text-center sm:text-left pb-1">
             <h2 className="text-2xl font-bold tracking-wide">
@@ -59,7 +61,6 @@ const ProfilePage = () => {
         </div>
       </section>
 
-      {/* Contenido */}
       <div className="container mx-auto px-4 md:px-6 py-8 max-w-2xl">
         <div className="bg-white rounded-xl border border-gray-100 shadow p-6 md:p-8">
           <div className="mb-6">
@@ -67,7 +68,7 @@ const ProfilePage = () => {
               Información personal
             </h3>
             <p className="text-sm text-gray-400 mt-0.5">
-              Actualiza tus datos de contacto y documento.
+              Mantén tus datos actualizados para una mejor experiencia.
             </p>
           </div>
           <PersonalForm
@@ -77,6 +78,8 @@ const ProfilePage = () => {
             error={error}
             onChange={handleChange}
             onSubmit={handleSubmit}
+            OCCUPATIONS={OCCUPATIONS}
+            HOW_DID_YOU_FIND_US={HOW_DID_YOU_FIND_US}
           />
         </div>
       </div>
