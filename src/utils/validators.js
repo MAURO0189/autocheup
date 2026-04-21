@@ -62,3 +62,33 @@ export const parseErrorMessage = (data) => {
   }
   return "Hubo un problema con el registro";
 };
+
+export const validateBirthDate = (dateStr) => {
+  if (!dateStr) return "La fecha de nacimiento es obligatoria";
+
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return "La fecha de nacimiento no es válida";
+
+  const minYear = 1900;
+  const maxYear = new Date().getFullYear() - 1;
+  const year = date.getFullYear();
+
+  if (year < minYear || year > maxYear) {
+    return `El año de nacimiento debe estar entre ${minYear} y ${maxYear}`;
+  }
+
+  return null;
+};
+
+export const validateOccupation = (occupation, otherOccupation) => {
+  if (!occupation) return "La ocupación es obligatoria";
+  if (occupation === "Otros" && !otherOccupation?.trim()) {
+    return "Debes especificar tu ocupación";
+  }
+  return null;
+};
+
+export const validateHowDidYouFindUs = (value) => {
+  if (!value) return "Este campo es obligatorio";
+  return null;
+};

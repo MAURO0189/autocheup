@@ -60,3 +60,26 @@ export const apiDelete = async (path) => {
   const data = await res.json();
   return { ok: res.ok, data };
 };
+
+export const apiPatch = async (path, body) => {
+  const csrf = await getCsrfToken();
+
+  const res = await fetch(`${backURL}${path}`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrf,
+    },
+    body: JSON.stringify(body),
+  });
+
+  // Si el CSRF expiró, limpiar caché y reintentar una vez
+  if (res.status === 403) {
+    csrfToken = null;
+    return apiPatch(path, body);
+  }
+
+  const data = await res.json();
+  return { ok: res.ok, data };
+};
